@@ -28,6 +28,13 @@
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
+    <style>
+      .reveal img.transparent {
+        border: none;
+        box-shadow: none;
+        background: transparent;
+      }
+    </style>
   </head>
 
   <body>
@@ -55,8 +62,28 @@
                 <span class="fragment roll-in">OK maybe it's not for you</span>
               </li>
               <li class="fragment fade-in">Ruby has no real threading.</li>
-              <li class="fragment fade-in">Ruby has no real threading.</li>
+              <li class="fragment fade-in">Most probably you're wasting resources</li>
+              <li class="fragment fade-in">Be a bit more green...</li>
             </ul>
+          </section>
+
+          <section>
+            <h3>When should I use?</h3>
+
+            <ul>
+              <li class="fragment fade-in">Slow clients</li>
+              <li class="fragment fade-in">Streaming</li>
+              <li class="fragment fade-in">Websockets</li>
+              <li class="fragment fade-in">Too many concurrent clients</li>
+              <li class="fragment fade-in">Many I/O operation</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Who uses it?</h3>
+            <img class="transparent" src="http://code.macournoyer.com/thin/images/logo.gif" title alt /><br/>
+            <img class="transparent" src="http://faye.jcoglan.com/stylesheets/faye-logo.gif" title alt /><br/>
+            <h3>Rainbows!</h3>...
           </section>
 
           <section>
@@ -68,14 +95,82 @@
 
           <section>
             <h3>How it works</h3>
-            <p class="fragment fade-in">
-            </p>
+          </section>
+
+          <section data-background="#232323">
+            <h3>Synchronous code</h3>
+            <pre><code data-trim>
+balls = synchronous_ball_count(playground)
+paint_red(balls)
+roll_twice(balls)
+deliver_to_shop(balls)
+            </code></pre>
+          </section>
+
+          <section data-background="#232323">
+            <h3>Async code</h3>
+            <pre><code data-trim>
+async_ball_count(small_playground) do |balls|
+  # called only after all balls counted
+  paint_red(balls) do
+    # called only after all balls painted to red
+    roll_twice(balls)
+    deliver_to_shop(balls)
+  end
+end
+
+async_ball_count(large_playground) do |balls|
+  paint_blue(balls) do
+    roll_twice(balls)
+    deliver_to_shop(balls)
+  end
+end
+            </code></pre>
           </section>
         </section>
 
         <section>
-          <section>
+          <section data-background="#232323">
             <h3>The run loop</h3>
+            <pre><code data-trim>
+require 'eventmachine'
+
+EventMachine.run do
+  # your code
+end
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>What happens in the loop?</h3>
+            <ul>
+              <li>Data sending and receiving,</li>
+              <li>file reading and writing,</li>
+              <li>network activity monitoring, </li>
+              <li>connection creation,</li>
+              <li>... and your custom code.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Build something<br>for God's sake!44!!4</h3>
+            <p>
+              Create a basic mirror server!
+            </p>
+          </section>
+
+          <section>
+            <h3>When will my code run?</h3>
+            <ul>
+              <li>Timers
+                <ul>
+                  <li><code>EM::Timer</code></li>
+                  <li><code>EM::PeriodicTimer</code></li>
+                </ul>
+              </li>
+              <li><code>EM.next_tick</code></li>
+              <li><code>EM.defer</code> ( and where will my code run? )</li>
+            </ul>
           </section>
         </section>
 
