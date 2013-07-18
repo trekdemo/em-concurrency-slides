@@ -7,7 +7,7 @@ EM.run do
     EM.stop
   end
 
-  # EM::PeriodicTimer.new(5) do
+  # timer = EM::PeriodicTimer.new(5) do
     # puts 'Tick'
   # end
   EM.add_periodic_timer(1) do
